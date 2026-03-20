@@ -34,6 +34,7 @@
             <div class="form-row">
               <label for="eventType">Tipo de cartão</label>
               <select id="eventType" name="eventType" required>
+                <option value="" selected disabled>Selecione um tipo de cartão</option>
                 <option value="Aniversário">Aniversário</option>
                 <option value="Natal">Natal</option>
                 <option value="Páscoa">Páscoa</option>
@@ -117,7 +118,7 @@
           <article id="liveCard" class="live-card" aria-live="polite">
             <h3 id="cardTitle" class="card-title">Feliz Aniversário!</h3>
             <p id="cardMessage" class="card-message">Que seu dia seja cheio de alegria, saúde e bons momentos.</p>
-            <img id="cardImage" class="card-photo" alt="Imagem selecionada para o cartão">
+            <img id="cardImage" class="card-photo" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Imagem selecionada para o cartão">
             <div id="cardBadges" class="card-badges" aria-hidden="true"></div>
           </article>
         </div>

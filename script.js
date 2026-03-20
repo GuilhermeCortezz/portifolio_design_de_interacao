@@ -125,12 +125,13 @@
   function setImageSource() {
     const urlValue = controls.imageUrl.value.trim();
     const selectedSource = urlValue !== "" ? urlValue : uploadedImageDataUrl;
+    const placeholderImage = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
 
     if (selectedSource) {
       card.image.src = selectedSource;
       card.image.style.display = "block";
     } else {
-      card.image.removeAttribute("src");
+      card.image.src = placeholderImage;
       card.image.style.display = "none";
     }
   }
@@ -220,6 +221,7 @@
   controls.imageFile.addEventListener("change", onFileSelected);
 
   // Inicializacao do editor com modelo padrao e preview pronto ao abrir a pagina.
+  controls.eventType.value = "Aniversário";
   applyTemplate();
   updateCard();
 })();
