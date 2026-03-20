@@ -1,0 +1,392 @@
+/* Variaveis de tema: centralizam cores para manter consistencia visual no site inteiro. */
+:root {
+  --bg: #f6efe6;
+  --surface: #fffdf8;
+  --surface-alt: #f1dfc8;
+  --ink: #2f241f;
+  --ink-soft: #62524b;
+  --accent: #b14f2f;
+  --accent-strong: #7f2f18;
+  --line: #d3bea8;
+  --ok: #1c7a4f;
+}
+
+* {
+  /* Facilita controle de largura/altura e evita overflow inesperado em componentes. */
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  /* Fundo com camadas de gradiente para dar profundidade sem usar imagens externas. */
+  margin: 0;
+  font-family: "Poppins", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%, #ffe9c8 0, transparent 35%),
+    radial-gradient(circle at 90% 0, #f4d3bb 0, transparent 26%),
+    linear-gradient(180deg, #f9f2ea 0%, #f0e2d2 65%, #ecdbc8 100%);
+  min-height: 100vh;
+}
+
+.site-wrapper {
+  /* Estrutura principal em coluna para seguir o requisito da pagina de apresentacao. */
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.site-header {
+  /* Bloco visual de destaque para titulo e contexto do portfolio. */
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(120deg, #fff8ef 0%, #f4ddc4 100%);
+  padding: 1.25rem;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(92, 58, 38, 0.08);
+}
+
+.site-header h1 {
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  letter-spacing: 0.04em;
+}
+
+.site-header p {
+  margin: 0.5rem 0 0;
+  color: var(--ink-soft);
+}
+
+.site-nav {
+  /* Menu unificado compartilhado pelas paginas. */
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--surface);
+  padding: 0.75rem;
+}
+
+.menu-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.menu-list a {
+  display: inline-block;
+  padding: 0.6rem 0.95rem;
+  border-radius: 999px;
+  text-decoration: none;
+  border: 1px solid var(--line);
+  color: var(--accent-strong);
+  font-weight: 600;
+  background: #fff;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.menu-list a:hover,
+.menu-list a:focus-visible {
+  background-color: #ffe9d3;
+  transform: translateY(-1px);
+  outline: 2px solid transparent;
+}
+
+.menu-list a[aria-current="page"] {
+  /* Estado ativo da pagina atual para orientar navegacao. */
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+.main-content {
+  /* Container de conteudo principal (main), reutilizado em todas as telas. */
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--surface);
+  padding: 1.25rem;
+  box-shadow: 0 10px 24px rgba(86, 54, 35, 0.09);
+}
+
+.intro-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.content-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background-color: #fffefb;
+}
+
+.content-card h2 {
+  margin-top: 0;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.figure-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.figure-grid figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.figure-grid svg {
+  width: 100%;
+  height: 170px;
+  display: block;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #fff9f1 0, #ffe6c8 100%);
+}
+
+.figure-grid figcaption {
+  margin-top: 0.65rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.editor-layout {
+  /* Duas colunas no desktop: formulario + preview do cartao. */
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(260px, 1fr);
+  gap: 1rem;
+}
+
+.form-panel,
+.preview-panel {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: #fffefb;
+}
+
+.preview-panel {
+  /* Mantem o cartao visivel durante a rolagem no desktop para edicao mais rapida. */
+  position: sticky;
+  top: 1rem;
+  align-self: start;
+  height: fit-content;
+  overflow: hidden;
+}
+
+.form-panel h2,
+.preview-panel h2 {
+  margin-top: 0;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.editor-form {
+  /* Organiza os grupos de campos do editor de forma previsivel. */
+  display: grid;
+  gap: 0.75rem;
+}
+
+.editor-form fieldset {
+  margin: 0;
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.editor-form legend {
+  padding: 0 0.35rem;
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.form-row {
+  display: grid;
+  gap: 0.35rem;
+  margin-bottom: 0.6rem;
+}
+
+.form-row:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+input,
+select,
+textarea {
+  /* Aparencia consistente para todos os controles do formulario. */
+  width: 100%;
+  padding: 0.55rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background-color: #fff;
+  font: inherit;
+  color: var(--ink);
+}
+
+input[type="color"] {
+  padding: 0.2rem;
+  height: 2.4rem;
+}
+
+input[type="range"] {
+  padding: 0;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 5.3rem;
+}
+
+.helper-text {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.card-stage {
+  /* Area de centralizacao da pre-visualizacao do cartao. */
+  display: grid;
+  place-items: center;
+  min-height: 100%;
+  width: 100%;
+}
+
+.live-card {
+  /* Cartao editavel: limites de largura e overflow evitam quebra no mobile. */
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  min-height: 290px;
+  padding: 1.1rem;
+  border-radius: 16px;
+  border: 3px solid #d8b188;
+  background: linear-gradient(145deg, #fff8ef 0%, #ffe2bc 100%);
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(91, 56, 36, 0.16);
+}
+
+.card-title {
+  /* Z-index superior para manter legibilidade acima de selos decorativos. */
+  margin: 0;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+  line-height: 1.2;
+  text-wrap: balance;
+  position: relative;
+  z-index: 2;
+}
+
+.card-message {
+  margin: 0.8rem 0 0;
+  font-size: 1rem;
+  line-height: 1.45;
+  position: relative;
+  z-index: 2;
+}
+
+.card-photo {
+  margin-top: 1rem;
+  width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  display: none;
+  position: relative;
+  z-index: 2;
+}
+
+.card-badges {
+  /* Camada decorativa nao interativa, para nao bloquear selecao/click em outros elementos. */
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-badge {
+  /* Estilo de selo: decorativo, compacto e sem estourar o cartao. */
+  position: absolute;
+  padding: 0.24rem 0.62rem;
+  border-radius: 12px;
+  font-weight: 700;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  box-shadow: 0 5px 10px rgba(63, 35, 17, 0.14);
+  max-width: 42%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 1.1;
+  letter-spacing: 0.01em;
+}
+
+.card-badge::after {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(52, 31, 20, 0.22);
+  display: inline-block;
+  margin-left: 0.35rem;
+  vertical-align: middle;
+}
+
+.site-footer {
+  /* Rodape padrao da disciplina, igual em todas as paginas. */
+  border: 2px solid var(--line);
+  border-radius: 16px;
+  background-color: var(--surface-alt);
+  padding: 0.85rem;
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: 0.94rem;
+}
+
+.notice {
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  padding: 0.75rem;
+  background: #fff9f2;
+}
+
+@media (max-width: 880px) {
+  /* No mobile a interface vira coluna unica para melhor leitura e toque. */
+  .editor-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .preview-panel {
+    /* Desativa sticky no mobile para evitar comportamento desconfortavel de rolagem. */
+    position: static;
+  }
+
+  .figure-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .main-content {
+    padding: 0.8rem;
+  }
+
+  .live-card {
+    min-height: 260px;
+    padding: 0.9rem;
+  }
+}

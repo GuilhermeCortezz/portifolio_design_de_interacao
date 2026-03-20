@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Editor de Cartões - Design de Interação</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <header class="site-header">
+      <h1>Portfólio da Disciplina de Design de Interação</h1>
+      <p>Ambiente para reunir e apresentar os trabalhos desenvolvidos ao longo do semestre.</p>
+    </header>
+
+    <nav class="site-nav" aria-label="Menu principal">
+      <ul class="menu-list">
+        <li><a href="index.html">Apresentação</a></li>
+        <li><a href="editor.html" aria-current="page">Trabalho 1: Editor de Cartões</a></li>
+        <li><a href="trabalho2.html">Trabalho 2</a></li>
+        <li><a href="trabalho3.html">Trabalho 3</a></li>
+      </ul>
+    </nav>
+
+    <main class="main-content editor-layout">
+      <section class="form-panel" aria-label="Formulário de edição">
+        <h2>Editor Online de Cartões</h2>
+        <form id="cardEditorForm" class="editor-form" novalidate>
+          <fieldset>
+            <legend>Conteúdo principal</legend>
+            <div class="form-row">
+              <label for="eventType">Tipo de cartão</label>
+              <select id="eventType" name="eventType" required>
+                <option value="Aniversário">Aniversário</option>
+                <option value="Natal">Natal</option>
+                <option value="Páscoa">Páscoa</option>
+                <option value="Formatura">Formatura</option>
+                <option value="Outra celebração">Outra celebração</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label for="titleInput">Título do cartão</label>
+              <input id="titleInput" name="titleInput" type="text" maxlength="60" required value="Feliz Aniversário!" aria-describedby="titleHelp">
+              <p class="helper-text" id="titleHelp">Máximo de 60 caracteres.</p>
+            </div>
+            <div class="form-row">
+              <label for="messageInput">Mensagem</label>
+              <textarea id="messageInput" name="messageInput" maxlength="220" required>Que seu dia seja cheio de alegria, saúde e bons momentos.</textarea>
+              <p class="helper-text">Máximo de 220 caracteres.</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Estilo visual</legend>
+            <div class="form-row">
+              <label for="bgColorInput">Cor de fundo do cartão</label>
+              <input id="bgColorInput" name="bgColorInput" type="color" value="#ffe2bc">
+            </div>
+            <div class="form-row">
+              <label for="textColorInput">Cor do texto</label>
+              <input id="textColorInput" name="textColorInput" type="color" value="#2f241f">
+            </div>
+            <div class="form-row">
+              <label for="borderColorInput">Cor da borda</label>
+              <input id="borderColorInput" name="borderColorInput" type="color" value="#d8b188">
+            </div>
+            <div class="form-row">
+              <label for="fontSizeInput">Tamanho do texto principal</label>
+              <input id="fontSizeInput" name="fontSizeInput" type="range" min="14" max="28" step="1" value="16">
+              <p class="helper-text">Valor: <output id="fontSizeOutput" for="fontSizeInput">16</output>px</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Imagem no cartão</legend>
+            <div class="form-row">
+              <label for="imageUrlInput">URL da imagem</label>
+              <input id="imageUrlInput" name="imageUrlInput" type="url" placeholder="https://exemplo.com/imagem.jpg" pattern="https://.*">
+              <p class="helper-text">Use link HTTPS válido.</p>
+            </div>
+            <div class="form-row">
+              <label for="imageFileInput">Ou enviar imagem do dispositivo</label>
+              <input id="imageFileInput" name="imageFileInput" type="file" accept="image/png, image/jpeg, image/webp">
+              <p class="helper-text">Formatos: PNG, JPG ou WEBP.</p>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>Elementos extras</legend>
+            <div class="form-row">
+              <label for="badgeCountInput">Quantidade de selos decorativos</label>
+              <input id="badgeCountInput" name="badgeCountInput" type="range" min="0" max="6" step="1" value="2">
+              <p class="helper-text">Quantidade: <output id="badgeCountOutput" for="badgeCountInput">2</output></p>
+            </div>
+            <div class="form-row">
+              <label for="badgeTextInput">Texto dos selos</label>
+              <input id="badgeTextInput" name="badgeTextInput" type="text" maxlength="20" value="Parabéns">
+            </div>
+            <div class="form-row">
+              <label for="badgeColorInput">Cor dos selos</label>
+              <input id="badgeColorInput" name="badgeColorInput" type="color" value="#f8f0d7">
+            </div>
+            <div class="form-row">
+              <label for="badgeSizeInput">Tamanho dos selos</label>
+              <input id="badgeSizeInput" name="badgeSizeInput" type="range" min="12" max="20" step="1" value="14">
+            </div>
+          </fieldset>
+        </form>
+      </section>
+
+      <section class="preview-panel" aria-label="Visualização do cartão">
+        <h2>Pré-visualização em tempo real</h2>
+        <div class="card-stage">
+          <article id="liveCard" class="live-card" aria-live="polite">
+            <h3 id="cardTitle" class="card-title">Feliz Aniversário!</h3>
+            <p id="cardMessage" class="card-message">Que seu dia seja cheio de alegria, saúde e bons momentos.</p>
+            <img id="cardImage" class="card-photo" alt="Imagem selecionada para o cartão">
+            <div id="cardBadges" class="card-badges" aria-hidden="true"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Disciplina de Design de Interação • Portfólio acadêmico do semestre 2026.1</p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
