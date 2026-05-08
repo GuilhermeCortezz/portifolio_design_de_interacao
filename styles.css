@@ -130,6 +130,7 @@ body {
   background-color: #fffefb;
 }
 
+.content-card h1,
 .content-card h2 {
   margin-top: 0;
   font-family: "Fraunces", Georgia, serif;
