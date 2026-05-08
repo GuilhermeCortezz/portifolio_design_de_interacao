@@ -11,19 +11,8 @@
 </head>
 <body>
   <div class="site-wrapper">
-    <header class="site-header">
-      <h1>Portfólio da Disciplina de Design de Interação</h1>
-      <p>Ambiente para reunir e apresentar os trabalhos desenvolvidos ao longo do semestre.</p>
-    </header>
-
-    <nav class="site-nav" aria-label="Menu principal">
-      <ul class="menu-list">
-        <li><a href="index.html" aria-current="page">Apresentação</a></li>
-        <li><a href="editor.html">Trabalho 1: Editor de Cartões</a></li>
-        <li><a href="trabalho2.html">Trabalho 2</a></li>
-        <li><a href="trabalho3.html">Trabalho 3</a></li>
-      </ul>
-    </nav>
+    <site-header></site-header>
+    <site-nav active="index"></site-nav>
 
     <main class="main-content intro-layout">
       <section class="content-card">
@@ -70,9 +59,9 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>Disciplina de Design de Interação • Portfólio acadêmico do semestre 2026.1</p>
-    </footer>
+    <site-footer></site-footer>
   </div>
+
+  <script src="components.js"></script>
 </body>
 </html>

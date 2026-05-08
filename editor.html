@@ -11,19 +11,11 @@
 </head>
 <body>
   <div class="site-wrapper">
-    <header class="site-header">
-      <h1>Portfólio da Disciplina de Design de Interação</h1>
-      <p>Ambiente para reunir e apresentar os trabalhos desenvolvidos ao longo do semestre.</p>
-    </header>
-
-    <nav class="site-nav" aria-label="Menu principal">
-      <ul class="menu-list">
-        <li><a href="index.html">Apresentação</a></li>
-        <li><a href="editor.html" aria-current="page">Trabalho 1: Editor de Cartões</a></li>
-        <li><a href="trabalho2.html">Trabalho 2</a></li>
-        <li><a href="trabalho3.html">Trabalho 3</a></li>
-      </ul>
-    </nav>
+    <site-header>
+      <span slot="title">Trabalho 1 - Editor de Cartões</span>
+      <span slot="desc">Implementação do editor de cartões.</span>
+    </site-header>
+    <site-nav active="editor"></site-nav>
 
     <main class="main-content editor-layout">
       <section class="form-panel" aria-label="Formulário de edição">
@@ -125,11 +117,10 @@
       </section>
     </main>
 
-    <footer class="site-footer">
-      <p>Disciplina de Design de Interação • Portfólio acadêmico do semestre 2026.1</p>
-    </footer>
+    <site-footer></site-footer>
   </div>
 
+  <script src="components.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
