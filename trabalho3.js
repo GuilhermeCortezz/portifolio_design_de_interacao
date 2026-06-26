@@ -53,6 +53,13 @@
         return;
       }
 
+      if (!lang) {
+        setText(status, "Escolha um idioma de destino antes de enviar.");
+        details.innerHTML = "";
+        targetLang.focus();
+        return;
+      }
+
       setText(status, "Enviando dados para a API MyMemory...");
       details.innerHTML = "";
 
