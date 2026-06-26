@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Trabalho 3 - Design de Interação</title>
+  <title>Trabalho 3 - API e JavaScript Assincrono</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -11,25 +11,36 @@
 </head>
 <body>
   <div class="site-wrapper">
-    <site-header></site-header>
+    <site-header>
+      <span slot="title">Trabalho 3 - API e JavaScript Assincrono</span>
+      <span slot="desc">Atividade com arquivo JSON, fetch, tratamento de erros e Promise.all.</span>
+    </site-header>
     <site-nav active="trabalho3"></site-nav>
 
     <main class="main-content intro-layout">
       <section class="content-card">
-        <h1>Espaço Reservado para o Trabalho 3</h1>
+        <h1>Atividade de APIs</h1>
         <p>
-          Esta área será utilizada para publicar a terceira atividade da disciplina,
-          mantendo o mesmo padrão visual para garantir unidade no portfólio.
+          O Trabalho 3 foi dividido em paginas para deixar cada parte clara para o usuario.
+          A prova on-line agora carrega suas perguntas a partir de um arquivo JSON usando fetch.
         </p>
       </section>
-      <section class="notice" aria-label="Aviso de atualização futura">
-        <p>
-          O conteúdo do Trabalho 3 será incluído nesta página ao longo do semestre.
-        </p>
+
+      <section class="api-grid" aria-label="Paginas do Trabalho 3">
+        <article class="api-card">
+          <h2>Formulario com API</h2>
+          <p>Envie uma frase para a API MyMemory e veja a traducao retornada.</p>
+          <a class="text-link" href="api-form.html">Abrir formulario</a>
+        </article>
+        <article class="api-card">
+          <h2>3 APIs em paralelo</h2>
+          <p>Consulte noticia espacial, cotacao do dolar e dados do Brasil com Promise.all.</p>
+          <a class="text-link" href="apis-paralelas.html">Abrir painel</a>
+        </article>
       </section>
     </main>
 
-  <site-footer></site-footer>
+    <site-footer></site-footer>
   </div>
 
   <script src="components.js"></script>

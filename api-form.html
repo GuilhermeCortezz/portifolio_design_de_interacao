@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trabalho 3 - Formulario com API</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <site-header>
+      <span slot="title">Trabalho 3 - Formulario com API</span>
+      <span slot="desc">Envio de dados do usuario para uma API e exibicao da resposta recebida.</span>
+    </site-header>
+    <site-nav active="api-form"></site-nav>
+
+    <main class="main-content api-page">
+      <section class="content-card">
+        <h1>Tradutor para o Usuario Final</h1>
+        <p>
+          Digite uma frase em portugues, escolha o idioma de destino e envie. A pagina consulta
+          a API MyMemory e mostra a traducao retornada logo abaixo do formulario.
+        </p>
+      </section>
+
+      <section class="api-panel" aria-labelledby="translator-title">
+        <h2 id="translator-title">Enviar frase para traducao</h2>
+        <form id="translationForm" class="editor-form" novalidate>
+          <div class="form-row">
+            <label for="sourceText">Texto em portugues</label>
+            <textarea id="sourceText" name="sourceText" maxlength="450" required placeholder="Exemplo: Hoje estou aprendendo JavaScript assincrono."></textarea>
+            <p class="helper-text">Escreva entre 3 e 450 caracteres.</p>
+          </div>
+
+          <div class="form-row">
+            <label for="targetLang">Idioma de destino</label>
+            <select id="targetLang" name="targetLang" required>
+              <option value="en">Ingles</option>
+              <option value="es">Espanhol</option>
+              <option value="fr">Frances</option>
+              <option value="it">Italiano</option>
+            </select>
+          </div>
+
+          <button type="submit" class="primary-action">Traduzir texto</button>
+        </form>
+      </section>
+
+      <section class="api-result" aria-live="polite" aria-labelledby="translation-result-title">
+        <h2 id="translation-result-title">Resposta da API</h2>
+        <p id="translationStatus">A traducao aparecera aqui depois do envio do formulario.</p>
+        <dl id="translationDetails" class="response-list"></dl>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+  </div>
+
+  <script src="components.js"></script>
+  <script src="trabalho3.js"></script>
+</body>
+</html>

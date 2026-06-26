@@ -1,0 +1,29 @@
+[
+  {
+    "question": "O que significa HTML?",
+    "options": [
+      "Hyper Text Markup Language",
+      "High Text Making Language",
+      "Hyperlinks and Text Markup Language"
+    ],
+    "correct": 0
+  },
+  {
+    "question": "Qual e a cor primaria de um website neutro?",
+    "options": [
+      "Vermelho vivo",
+      "Cinza ou branco",
+      "Rosa fluorescente"
+    ],
+    "correct": 1
+  },
+  {
+    "question": "Em CSS, como selecionamos um elemento com o id 'teste'?",
+    "options": [
+      ".teste",
+      "#teste",
+      "*teste"
+    ],
+    "correct": 1
+  }
+]

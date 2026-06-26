@@ -367,6 +367,86 @@ textarea {
   background: #fff9f2;
 }
 
+.api-page {
+  display: grid;
+  gap: 1rem;
+}
+
+.api-panel,
+.api-result {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1rem;
+  background: #fffefb;
+}
+
+.api-panel h2,
+.api-result h2,
+.api-card h2,
+.api-card h3 {
+  margin-top: 0;
+  font-family: "Fraunces", Georgia, serif;
+}
+
+.primary-action {
+  width: fit-content;
+  padding: 0.65rem 1rem;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #fff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primary-action:hover,
+.primary-action:focus-visible {
+  background: var(--accent-strong);
+}
+
+.response-list {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.35fr) 1fr;
+  gap: 0.55rem 0.8rem;
+  margin: 1rem 0 0;
+}
+
+.response-list dt {
+  font-weight: 700;
+  color: var(--accent-strong);
+}
+
+.response-list dd {
+  margin: 0;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.api-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.api-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem;
+  background: #fff;
+}
+
+.api-card p {
+  color: var(--ink-soft);
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
 @media (max-width: 880px) {
   /* No mobile a interface vira coluna unica para melhor leitura e toque. */
   .editor-layout {
@@ -389,5 +469,13 @@ textarea {
   .live-card {
     min-height: 260px;
     padding: 0.9rem;
+  }
+
+  .api-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .response-list {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trabalho 3 - 3 APIs em Paralelo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-wrapper">
+    <site-header>
+      <span slot="title">Trabalho 3 - APIs em Paralelo</span>
+      <span slot="desc">Consulta simultanea a tres APIs diferentes usando Promise.all.</span>
+    </site-header>
+    <site-nav active="apis-paralelas"></site-nav>
+
+    <main class="main-content api-page">
+      <section class="content-card">
+        <h1>Painel de Informacoes Atualizadas</h1>
+        <p>
+          Ao abrir esta pagina, tres APIs publicas sao consultadas ao mesmo tempo. Quando todas
+          respondem corretamente, os dados sao apresentados juntos nesta area principal.
+        </p>
+      </section>
+
+      <section class="api-panel" aria-labelledby="parallel-title">
+        <h2 id="parallel-title">Resultado das consultas paralelas</h2>
+        <p id="parallelStatus" aria-live="polite">Carregando dados das APIs...</p>
+        <div id="parallelResults" class="api-grid"></div>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+  </div>
+
+  <script src="components.js"></script>
+  <script src="trabalho3.js"></script>
+</body>
+</html>

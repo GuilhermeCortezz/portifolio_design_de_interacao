@@ -1,31 +1,72 @@
-// Array de objetos contendo os dados das questões da prova
-const quizData = [
-  {
-    question: "O que significa HTML?",
-    options: ["Hyper Text Markup Language", "High Text Making Language", "Hyperlinks and Text Markup Language"],
-    correct: 0
-  },
-  {
-    question: "Qual é a cor primária de um website neutro?",
-    options: ["Vermelho vivo", "Cinza ou branco", "Rosa fluorescente"],
-    correct: 1
-  },
-  {
-    question: "Em CSS, como selecionamos um elemento com o id 'teste'?",
-    options: [".teste", "#teste", "*teste"],
-    correct: 1
-  }
-];
-
-// 1. Template Web Component para a Prova On-line
 class OnlineQuiz extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
+    this.quizData = [];
   }
 
   connectedCallback() {
-    this.render();
+    this.loadQuiz();
+  }
+
+  async loadQuiz() {
+    this.renderLoading();
+
+    try {
+      const response = await fetch("quiz-data.json");
+
+      if (!response.ok) {
+        throw new Error(`Erro HTTP ${response.status}`);
+      }
+
+      const data = await response.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        throw new Error("Arquivo JSON sem questoes validas.");
+      }
+
+      this.quizData = data;
+      this.render();
+    } catch (error) {
+      this.renderError(error);
+    }
+  }
+
+  renderLoading() {
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          font-family: "Poppins", sans-serif;
+          background: #fff;
+          padding: 1.5rem;
+          border: 1px solid var(--line, #d3bea8);
+          border-radius: 12px;
+          color: var(--ink, #2f241f);
+        }
+      </style>
+      <p>Carregando as questoes da prova...</p>
+    `;
+  }
+
+  renderError(error) {
+    this.shadowRoot.innerHTML = `
+      <style>
+        :host {
+          display: block;
+          font-family: "Poppins", sans-serif;
+          background: #fff9f2;
+          padding: 1.5rem;
+          border: 1px solid var(--accent, #b14f2f);
+          border-radius: 12px;
+          color: var(--ink, #2f241f);
+        }
+        strong { color: var(--accent-strong, #7f2f18); }
+      </style>
+      <p><strong>Nao foi possivel carregar a prova.</strong></p>
+      <p>Verifique se o arquivo <code>quiz-data.json</code> esta disponivel e tente novamente.</p>
+      <small>${error.message}</small>
+    `;
   }
 
   render() {
@@ -98,7 +139,7 @@ class OnlineQuiz extends HTMLElement {
       <div id="quiz-container">
     `;
 
-    quizData.forEach((q, qIndex) => {
+    this.quizData.forEach((q, qIndex) => {
       html += `
         <div class="question-block" id="qBlock${qIndex}">
           <div class="question-title">${qIndex + 1}. ${q.question}</div>
@@ -127,69 +168,71 @@ class OnlineQuiz extends HTMLElement {
     `;
 
     this.shadowRoot.innerHTML = html;
-    this.shadowRoot.getElementById('btn-submit').addEventListener('click', () => this.submitQuiz());
-    this.shadowRoot.getElementById('btn-retry').addEventListener('click', () => this.retryQuiz());
+    this.shadowRoot.getElementById("btn-submit").addEventListener("click", () => this.submitQuiz());
+    this.shadowRoot.getElementById("btn-retry").addEventListener("click", () => this.retryQuiz());
   }
 
   submitQuiz() {
     let allAnswered = true;
     let score = 0;
-    const resultBox = this.shadowRoot.getElementById('result-box');
-    const errorMsg = this.shadowRoot.getElementById('error-msg');
-    
-    // Validate
-    quizData.forEach((q, idx) => {
+    const resultBox = this.shadowRoot.getElementById("result-box");
+    const errorMsg = this.shadowRoot.getElementById("error-msg");
+
+    this.quizData.forEach((q, idx) => {
       const selected = this.shadowRoot.querySelector(`input[name="q${idx}"]:checked`);
       if (!selected) allAnswered = false;
     });
 
     if (!allAnswered) {
-      errorMsg.style.display = 'block';
+      errorMsg.style.display = "block";
       return;
     }
-    
-    errorMsg.style.display = 'none';
 
-    // Correction
-    quizData.forEach((q, idx) => {
+    errorMsg.style.display = "none";
+
+    this.quizData.forEach((q, idx) => {
       const selected = this.shadowRoot.querySelector(`input[name="q${idx}"]:checked`);
-      const selectedVal = parseInt(selected.value);
+      const selectedVal = Number.parseInt(selected.value, 10);
       const feedbackEl = this.shadowRoot.getElementById(`feedback${idx}`);
-      
-      let feedbackHtml = `Responda dada: <strong>${q.options[selectedVal]}</strong> - `;
-      
+
+      let feedbackHtml = `Resposta dada: <strong>${q.options[selectedVal]}</strong> - `;
+
       if (selectedVal === q.correct) {
-        score++;
+        score += 1;
         feedbackHtml += `<span class="correct">Acertou!</span>`;
       } else {
         feedbackHtml += `<span class="wrong">Errou! A resposta certa era: ${q.options[q.correct]}</span>`;
       }
+
       feedbackEl.innerHTML = feedbackHtml;
-      
+
       const inputs = this.shadowRoot.querySelectorAll(`input[name="q${idx}"]`);
-      inputs.forEach(input => input.disabled = true);
+      inputs.forEach((input) => {
+        input.disabled = true;
+      });
     });
 
-    resultBox.innerHTML = `<h3>Sua nota final: ${score} de ${quizData.length}</h3>`;
-    resultBox.style.display = 'block';
-    
-    this.shadowRoot.getElementById('btn-submit').style.display = 'none';
-    this.shadowRoot.getElementById('btn-retry').style.display = 'inline-block';
+    resultBox.innerHTML = `<h3>Sua nota final: ${score} de ${this.quizData.length}</h3>`;
+    resultBox.style.display = "block";
+
+    this.shadowRoot.getElementById("btn-submit").style.display = "none";
+    this.shadowRoot.getElementById("btn-retry").style.display = "inline-block";
   }
 
   retryQuiz() {
     this.render();
   }
 }
-customElements.define('online-quiz', OnlineQuiz);
 
+if (!customElements.get("online-quiz")) {
+  customElements.define("online-quiz", OnlineQuiz);
+}
 
-// 2. Componentes de Layout Base (uso de templates e slots)
-const headerTemplate = document.createElement('template');
+const headerTemplate = document.createElement("template");
 headerTemplate.innerHTML = `
   <style>@import "styles.css";</style>
   <header class="site-header">
-    <h1><slot name="title">Portfólio da Disciplina de Design de Interação</slot></h1>
+    <h1><slot name="title">Portfolio da Disciplina de Design de Interacao</slot></h1>
     <p><slot name="desc">Ambiente para reunir e apresentar os trabalhos desenvolvidos ao longo do semestre.</slot></p>
   </header>
 `;
@@ -197,22 +240,26 @@ headerTemplate.innerHTML = `
 class SiteHeader extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(headerTemplate.content.cloneNode(true));
   }
 }
-customElements.define('site-header', SiteHeader);
 
+if (!customElements.get("site-header")) {
+  customElements.define("site-header", SiteHeader);
+}
 
-const navTemplate = document.createElement('template');
+const navTemplate = document.createElement("template");
 navTemplate.innerHTML = `
   <style>@import "styles.css";</style>
   <nav class="site-nav" aria-label="Menu principal">
     <ul class="menu-list">
-      <li><a href="index.html" id="link-index">Apresentação</a></li>
-      <li><a href="editor.html" id="link-editor">Trabalho 1: Editor de Cartões</a></li>
+      <li><a href="index.html" id="link-index">Apresentacao</a></li>
+      <li><a href="editor.html" id="link-editor">Trabalho 1: Editor de Cartoes</a></li>
       <li><a href="trabalho2.html" id="link-trabalho2">Trabalho 2: Prova On-line</a></li>
       <li><a href="trabalho3.html" id="link-trabalho3">Trabalho 3</a></li>
+      <li><a href="api-form.html" id="link-api-form">API com Formulario</a></li>
+      <li><a href="apis-paralelas.html" id="link-apis-paralelas">3 APIs em Paralelo</a></li>
     </ul>
   </nav>
 `;
@@ -220,34 +267,39 @@ navTemplate.innerHTML = `
 class SiteNav extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(navTemplate.content.cloneNode(true));
   }
-  
+
   connectedCallback() {
-    const activeId = this.getAttribute('active');
+    const activeId = this.getAttribute("active");
     if (activeId) {
-      const link = this.shadowRoot.getElementById('link-' + activeId);
-      if (link) link.setAttribute('aria-current', 'page');
+      const link = this.shadowRoot.getElementById("link-" + activeId);
+      if (link) link.setAttribute("aria-current", "page");
     }
   }
 }
-customElements.define('site-nav', SiteNav);
 
+if (!customElements.get("site-nav")) {
+  customElements.define("site-nav", SiteNav);
+}
 
-const footerTemplate = document.createElement('template');
+const footerTemplate = document.createElement("template");
 footerTemplate.innerHTML = `
   <style>@import "styles.css";</style>
   <footer class="site-footer">
-    <p><slot>Disciplina de Design de Interação • Portfólio acadêmico do semestre 2026.1</slot></p>
+    <p><slot>Disciplina de Design de Interacao - Portfolio academico do semestre 2026.1</slot></p>
   </footer>
 `;
 
 class SiteFooter extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: 'open' });
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.appendChild(footerTemplate.content.cloneNode(true));
   }
 }
-customElements.define('site-footer', SiteFooter);
+
+if (!customElements.get("site-footer")) {
+  customElements.define("site-footer", SiteFooter);
+}
