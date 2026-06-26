@@ -53,7 +53,7 @@
         return;
       }
 
-      if (!lang) {
+      if (!lang || lang === "") {
         setText(status, "Escolha um idioma de destino antes de enviar.");
         details.innerHTML = "";
         targetLang.focus();
